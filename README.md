@@ -503,6 +503,10 @@ This made it possible to produce a structured M4 penetration testing report rath
 
 ---
 
+# 🔐 Security & Ethical Use
+
+This lab is strictly for education purposes only.
+
 ## Conclusion
 
 The Mediroza General Hospital penetration testing project provided practical experience in identifying, validating and documenting web application security vulnerabilities.
@@ -515,4 +519,14 @@ Most importantly, the project provided hands-on experience moving from **initial
 
 > **All testing documented in this repository was performed in an authorized educational environment. Do not reproduce these techniques against systems without explicit permission.**
 
+# 👤 Author 
 
+Atemlefac Nkafu Bechem
+
+Cybersecurity Engineer
+
+LinkedIn: https://www.linkedin.com/in/atemlefac-nkafu-bechem-179987248
+
+# 📌 Project Information
+
+Program Name: Cybersecurity at Networkwalks | Week: 04 | Project: PENETRATION TESTING | Repository: GitHub
