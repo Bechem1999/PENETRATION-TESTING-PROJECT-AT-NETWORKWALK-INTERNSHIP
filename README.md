@@ -8,227 +8,205 @@
 
 ## Project Overview
 
-This repository documents a complete **web application penetration testing project** conducted against the **Mediroza General Hospital web application** as part of a practical cybersecurity internship at **Networkwalks**.
+This project documents a controlled and authorized web application penetration testing exercise conducted against the **Mediroza General Hospital** web application as part of a cybersecurity internship at **Networkwalks**.
 
-The project was structured into four progressive milestones, M1 through M4. Each milestone built on the discoveries made during the previous stage, allowing the assessment to progress from initial reconnaissance and application testing to vulnerability identification, controlled exploitation, sensitive information discovery, and professional security reporting.
+The project was completed through a series of practical milestones focused on identifying vulnerabilities, demonstrating their impact, recovering protected information, and documenting the findings in a professional penetration testing report.
 
-The assessment was performed within a **controlled and authorized educational environment**. Written permission was provided for the testing activities, and the objective was to develop practical penetration testing skills while understanding how weaknesses in different components of a web application can be chained together to produce significant security impact.
+The assessment focused on the security of the hospital's web application and included authentication testing, input validation testing, protected document access, PDF security analysis, metadata analysis, and investigation of exposed server resources.
 
-The project demonstrated a realistic penetration testing workflow:
+The engagement was performed in a **controlled educational environment with written authorization**. All testing activities were limited to the authorized target and were conducted for cybersecurity learning and assessment purposes.
 
-**Reconnaissance → Authentication Testing → Input Validation Testing → Vulnerability Discovery → Authorized Access → Document Analysis → Metadata Investigation → Server Exposure Discovery → Database Analysis → Risk Assessment → Professional Reporting**
+The project progressed through four main milestones:
 
-The four milestones were:
+- **M1:** Identify and retrieve confidential laboratory reports.
+- **M2:** Analyze and recover the contents of encrypted PDF reports.
+- **M3:** Investigate the critical data exposure discovered during the assessment.
+- **M4:** Produce a detailed professional penetration testing report.
 
-### M1 - Identify and Retrieve Confidential Laboratory Reports
-
-The first milestone focused on attacking the authorized web application to identify weaknesses in the authentication mechanism and gain access to the restricted patient portal.
-
-The objective was to retrieve three confidential laboratory PDF reports provided as part of the lab exercise.
-
-During this stage:
-
-- The login functionality was identified.
-- HTTP requests were intercepted using Burp Suite.
-- Authentication responses were analyzed.
-- Username enumeration was identified.
-- Input handling was tested.
-- A database syntax error was triggered through crafted input.
-- Evidence consistent with an SQL injection vulnerability was identified.
-- Authorized password testing was performed.
-- Access to the patient portal was obtained.
-- Three laboratory PDF reports were retrieved.
-
-The three retrieved documents were used as evidence for the M1 milestone.
+The assessment ultimately demonstrated how multiple weaknesses could be chained together to move from a web application entry point to access to highly sensitive organizational information.
 
 ---
 
-### M2 - Analyze and Recover the Protected PDF Reports
+## Objectives
 
-The second milestone focused on the security mechanisms protecting the three retrieved PDF files.
-
-The objective was to analyze the PDF encryption and recover access to the protected contents within the authorized laboratory environment.
-
-During this stage:
-
-- The encryption properties of the PDFs were inspected.
-- `qpdf` was used to analyze the PDF security configuration.
-- Password recovery techniques were applied within the lab.
-- Recovered passwords were validated.
-- Shell-special-character handling was encountered during password processing.
-- Shell variables were used to safely pass recovered credentials to commands.
-- The protected PDF files were successfully opened and analyzed.
-- ExifTool was used to inspect document metadata.
-
-This stage demonstrated that a penetration tester should not stop after retrieving a protected file. The file itself can contain additional information that may lead to further discoveries.
-
----
-
-### M3 - Identify Critical Data Exposure
-
-The third milestone focused on investigating the information discovered during the PDF metadata analysis.
-
-One of the PDF files contained an internal comment referencing an old database backup location.
-
-This provided a lead for investigating the server further.
-
-A request to the exposed `/old/` directory revealed that directory listing was enabled and that a database backup file was publicly accessible.
-
-The exposed backup was then downloaded and analyzed in the controlled environment.
-
-The database contained tables including:
-
-- `staff`
-- `shareholders`
-
-The `staff` table contained sensitive employee-related information, including salary information.
-
-The `shareholders` table contained shareholder ownership information.
-
-The database was imported into a local MariaDB environment for structured analysis.
-
-The assessment therefore demonstrated a significant information disclosure chain:
-
-**PDF Metadata → Internal Directory → Public Database Backup → Sensitive Organizational Information**
-
----
-
-### M4 - Professional Penetration Testing Report
-
-The final milestone focused on documenting the entire assessment professionally.
-
-The M4 report consolidated the results of M1, M2 and M3 and included:
-
-- Executive summary
-- Scope and methodology
-- Tools used
-- Vulnerability findings
-- Evidence and screenshots
-- Risk ratings
-- Impact analysis
-- Remediation recommendations
-- Confidential information exposure summary
-- Evidence register
-- Final conclusion
-
-The final report documented the complete attack path and provided recommendations for improving the security posture of the application and supporting infrastructure.
-
----
-
-# Objectives
-
-The primary objective of this project was to conduct a structured penetration test against an authorized web application and demonstrate the complete process from reconnaissance to professional reporting.
-
-The specific objectives were to:
+The main objectives of the project were to:
 
 1. Conduct reconnaissance against the authorized web application.
-2. Identify the application's publicly accessible entry points.
-3. Analyze the authentication mechanism.
-4. Test the login functionality for weaknesses.
-5. Identify username enumeration vulnerabilities.
-6. Test application input handling.
-7. Investigate potential SQL injection vulnerabilities.
-8. Perform authorized credential security testing.
-9. Gain authorized access to the restricted patient portal.
-10. Retrieve the three laboratory reports required by the M1 exercise.
-11. Analyze the encryption mechanisms protecting the PDF reports.
-12. Recover access to the protected documents within the authorized environment.
-13. Extract and analyze PDF metadata.
-14. Investigate security-relevant information discovered in document metadata.
-15. Identify publicly accessible server resources.
-16. Investigate the exposed database backup.
-17. Recover and analyze the database in a controlled local environment.
-18. Identify sensitive employee information.
-19. Identify shareholder information.
-20. Evaluate the potential impact of the discovered vulnerabilities.
-21. Assign appropriate risk ratings.
-22. Develop practical remediation recommendations.
-23. Collect and organize technical evidence.
-24. Produce a professional penetration testing report.
-25. Develop practical hands-on cybersecurity and penetration testing skills.
+2. Identify exposed application entry points and authentication mechanisms.
+3. Test the application's login functionality for security weaknesses.
+4. Investigate input handling and potential SQL injection vulnerabilities.
+5. Assess authentication controls and identify weaknesses in credential protection.
+6. Gain authorized access to the restricted patient portal.
+7. Retrieve the three confidential laboratory PDF reports provided within the lab.
+8. Analyze the encryption applied to the retrieved PDF files.
+9. Recover the contents of the protected PDF documents within the authorized lab environment.
+10. Examine document metadata for additional security-relevant information.
+11. Investigate server resources referenced by the discovered metadata.
+12. Identify sensitive employee and shareholder information exposed through the server.
+13. Document evidence for every stage of the assessment.
+14. Develop remediation recommendations based on the identified vulnerabilities.
+15. Produce a professional penetration testing report suitable for submission to the internship instructor.
 
 ---
 
-# Tools Used
+## Tools Used
 
-The project used a combination of web application testing, password auditing, file analysis, HTTP investigation and database analysis tools.
+The following tools and technologies were used during the assessment:
 
 | Tool | Purpose |
-|---|---|
-| **Kali Linux** | Primary penetration testing operating system |
-| **Burp Suite** | Intercepting and analyzing HTTP/HTTPS traffic |
-| **Burp Repeater** | Manually modifying and replaying web requests |
-| **Hydra** | Authorized password security testing |
-| **cURL** | HTTP requests and server resource investigation |
-| **qpdf** | PDF encryption and security analysis |
-| **ExifTool** | PDF metadata extraction and analysis |
-| **MariaDB** | Local database analysis |
-| **MySQL/MariaDB CLI** | SQL queries and database investigation |
-| **Linux Terminal** | Command-line investigation and automation |
-| **Web Browser** | Application navigation and evidence collection |
+|------|---------|
+| **Kali Linux** | Primary penetration testing environment |
+| **Burp Suite** | Intercepting, modifying and analyzing HTTP requests and responses |
+| **Burp Repeater** | Manual testing of authentication and input parameters |
+| **Hydra** | Authorized password testing against the login mechanism |
+| **cURL** | HTTP requests and investigation of exposed web resources |
+| **qpdf** | PDF encryption analysis and password-based PDF processing |
+| **ExifTool** | Extraction and analysis of PDF metadata |
+| **MariaDB** | Local analysis of the recovered database backup |
+| **MySQL/MariaDB CLI** | Querying and analyzing recovered database tables |
+| **Web Browser** | Application exploration and evidence collection |
+| **Linux Terminal** | Command-line investigation and file analysis |
 
 ---
 
-## Burp Suite
+## Skills Demonstrated
 
-Burp Suite was one of the primary tools used during M1.
+This project provided practical experience in several areas of cybersecurity and penetration testing.
 
-It was used to:
+### Web Application Security
 
-- Intercept login requests.
-- Examine HTTP request parameters.
-- Modify request parameters.
-- Replay requests.
-- Compare server responses.
-- Investigate authentication behavior.
-- Test input handling.
-- Capture evidence of application errors.
+- Web application reconnaissance
+- Authentication testing
+- Login mechanism analysis
+- Input validation testing
+- SQL injection identification
+- Error message analysis
+- Protected resource testing
+- Access control assessment
 
-Burp Repeater was particularly useful because it allowed individual requests to be modified and tested repeatedly without relying exclusively on the browser interface.
+### Penetration Testing
+
+- Black-box security testing
+- Manual request manipulation
+- Credential security assessment
+- Vulnerability verification
+- Exploitation validation
+- Evidence collection
+- Attack-path analysis
+- Risk assessment
+
+### Digital Forensics and File Analysis
+
+- PDF security analysis
+- PDF encryption inspection
+- Metadata extraction
+- Identification of security-relevant document metadata
+- Investigation of exposed files
+- Database backup analysis
+
+### Database Analysis
+
+- Importing a recovered SQL database into MariaDB
+- Identifying database tables
+- Querying structured data
+- Extracting employee information
+- Extracting shareholder information
+- Summarizing sensitive data exposure
+
+### Professional Security Reporting
+
+- Documenting vulnerabilities
+- Recording exploitation evidence
+- Assigning risk ratings
+- Developing remediation recommendations
+- Creating a structured penetration testing report
+- Maintaining an evidence trail throughout the assessment
+
+The methodology followed the general principles of structured web application security testing described by the **OWASP Web Security Testing Guide**, including information gathering, authentication testing, input validation testing and security analysis. 
 
 ---
 
-## Hydra
+## Methodology
 
-Hydra was used for authorized password security testing against the application's authentication mechanism.
+The assessment followed a structured penetration testing process.
 
-The purpose was to determine whether weak or guessable credentials could be identified through controlled testing.
+### Phase 1: Reconnaissance
 
-The results demonstrated that authentication controls represented an important security consideration for the application.
+The first stage involved exploring the authorized web application to understand its structure and identify available entry points.
 
----
+Particular attention was given to:
 
-## cURL
+- Login functionality
+- Application URLs
+- Form parameters
+- HTTP requests and responses
+- Authentication mechanisms
+- Accessible application resources
 
-cURL was used to investigate server-side resources after information discovered during M2 pointed toward an `/old/` directory.
-
-The tool allowed direct HTTP requests to be made and the resulting server responses to be examined.
-
-This helped confirm the availability of the exposed directory and database backup.
-
----
-
-## qpdf
-
-`qpdf` was used during M2 to inspect the security configuration of the retrieved PDF files.
-
-It provided information about:
-
-- PDF encryption
-- Encryption revision
-- Permissions
-- Password protection
-- File integrity
-
-It was also used to validate access to the recovered PDF documents.
+Burp Suite was used to intercept and inspect HTTP traffic.
 
 ---
 
-## ExifTool
+### Phase 2: Authentication Testing
 
-ExifTool was used to examine metadata contained in the recovered PDF files.
+The login functionality was tested to determine how the application handled valid and invalid authentication attempts.
 
-Metadata analysis revealed information such as:
+The assessment revealed that the application returned different responses for:
+
+- Non-existent usernames
+- Existing usernames with incorrect passwords
+
+This behavior provided evidence of **username enumeration**, because the responses could be used to distinguish between valid and invalid usernames.
+
+Authorized password testing was subsequently performed against the identified authentication mechanism.
+
+---
+
+### Phase 3: Input Validation Testing
+
+The login parameters were tested using controlled input manipulation.
+
+Burp Repeater was used to modify the login request and observe how the server processed unexpected input.
+
+A crafted input resulted in a database syntax error being returned by the application.
+
+This demonstrated unsafe handling of user-controlled input and provided evidence consistent with an **SQL injection vulnerability**. 
+
+---
+
+### Phase 4: Authorized Portal Access
+
+Following the authentication testing phase, authorized credentials were successfully used to access the patient portal.
+
+The portal contained three laboratory reports:
+
+- Pathology Report 1
+- Pathology Report 2
+- Pathology Report 3
+
+The three reports were retrieved as part of the M1 lab requirement.
+
+Evidence was captured showing the successful access to the restricted area and retrieval of the PDF documents.
+
+---
+
+### Phase 5: PDF Security Analysis
+
+The retrieved PDF files were analyzed to determine their protection mechanisms.
+
+`qpdf` was used to inspect the encryption configuration of the documents.
+
+The assessment then proceeded to authorized password recovery and validation of the recovered PDF contents.
+
+The decrypted files were subsequently analyzed using ExifTool.
+
+---
+
+### Phase 6: Metadata Analysis
+
+The PDF metadata was examined for information that could reveal additional security weaknesses.
+
+Metadata included information such as:
 
 - Document title
 - Author
@@ -238,315 +216,303 @@ Metadata analysis revealed information such as:
 - Keywords
 - Comments
 
-The most significant discovery was an internal comment referencing an old database backup.
+One of the PDF files contained a particularly important comment referencing a database backup stored in an `/old` directory.
+
+This discovery provided a lead for further investigation.
 
 ---
 
-## MariaDB
+### Phase 7: Exposed Server Resource Investigation
 
-MariaDB was used to create a controlled local environment for analyzing the recovered SQL database backup.
+The referenced `/old` directory was investigated using HTTP requests.
 
-The database was imported locally rather than interacting directly with the target database server.
+The investigation revealed that directory listing was enabled and that a database backup file was publicly accessible.
 
-SQL queries were then used to investigate the database structure and extract the information required by the M3 exercise.
+The exposed backup contained database structures including:
 
----
+- `staff`
+- `shareholders`
 
-# Skills Demonstrated
-
-This project provided practical experience across several cybersecurity domains.
-
-## 1. Web Application Reconnaissance
-
-The assessment required understanding the target application's structure before attempting exploitation.
-
-Skills demonstrated included:
-
-- Application discovery
-- Identification of login functionality
-- HTTP request inspection
-- Parameter identification
-- Response analysis
-- Attack-surface identification
+The database was imported into a controlled local MariaDB environment for analysis.
 
 ---
 
-## 2. Authentication Security Testing
+### Phase 8: Database Analysis
 
-The login functionality was analyzed for weaknesses.
+The recovered database was queried to determine the extent of the information exposure.
 
-Skills demonstrated included:
+The `staff` table contained information including:
 
-- Authentication workflow analysis
-- Username enumeration testing
-- Password security testing
-- Authentication response comparison
-- Credential validation
-- Access verification
+- Employee names
+- Job titles
+- Departments
+- Email information
+- Telephone information
+- National identification information
+- Salary information
+- Joining dates
 
----
+The `shareholders` table contained information including:
 
-## 3. SQL Injection Identification
+- Shareholder names
+- Percentage ownership
+- Number of shares
+- Share classes
 
-The project provided practical experience identifying unsafe database input handling.
-
-A crafted input generated a database syntax error, providing evidence that user-controlled input was reaching SQL processing without adequate protection.
-
-Skills demonstrated included:
-
-- Input manipulation
-- Error-based vulnerability identification
-- SQL error analysis
-- Burp Repeater usage
-- Vulnerability validation
+The assessment therefore demonstrated that the exposed backup represented a significant confidentiality risk.
 
 ---
 
-## 4. Password Security Testing
+### Phase 9: Risk Assessment
 
-The project demonstrated how authentication credentials can become a security risk when password controls are insufficient.
+The identified vulnerabilities were evaluated according to their potential impact on:
 
-Skills included:
+- Confidentiality
+- Integrity
+- Availability
+- Authentication
+- Access control
+- Sensitive information protection
 
-- Authorized password auditing
-- Hydra usage
-- Credential validation
-- Authentication testing
-- Understanding password attack surfaces
-
----
-
-## 5. PDF Security Analysis
-
-The project moved beyond web application testing into document security analysis.
-
-Skills demonstrated included:
-
-- PDF encryption inspection
-- PDF password analysis
-- Document integrity checking
-- Metadata extraction
-- Protected document analysis
+The most serious finding was the **public exposure of the database backup**, which was rated **Critical** because the exposed file contained sensitive organizational information.
 
 ---
 
-## 6. Digital Forensics
+### Phase 10: Reporting
 
-The investigation of PDF metadata introduced practical forensic concepts.
+The final stage involved documenting:
 
-Skills included:
+- Vulnerabilities discovered
+- Technical evidence
+- Exploitation results
+- Risk ratings
+- Business impact
+- Remediation recommendations
+- Screenshots from the assessment
+- Evidence collected throughout M1, M2 and M3
 
-- Metadata extraction
-- Identification of suspicious metadata
-- Analysis of internal comments
-- Following investigative leads
-- Correlating information from different sources
-
----
-
-## 7. Server Misconfiguration Identification
-
-The assessment identified an exposed directory containing a database backup.
-
-Skills demonstrated included:
-
-- Directory exposure analysis
-- HTTP resource investigation
-- Directory listing identification
-- Backup file discovery
-- Information disclosure analysis
+The findings were consolidated into a professional penetration testing report for the M4 milestone.
 
 ---
 
-## 8. Database Analysis
+## Lab Environment
 
-The recovered database was analyzed using a local MariaDB environment.
+The assessment was conducted in a controlled cybersecurity training environment.
 
-Skills demonstrated included:
+### Attacker/Test Environment
 
-- Database creation
-- SQL import
-- Table enumeration
-- SQL querying
-- Data filtering
-- Sorting results
-- Sensitive data identification
-- Database evidence collection
+**Operating System:** Kali Linux
 
----
+**Primary tools:**
 
-## 9. Vulnerability Assessment
+- Burp Suite
+- Hydra
+- cURL
+- qpdf
+- ExifTool
+- MariaDB
+- Linux command-line utilities
 
-The project required assessing the seriousness of multiple findings.
+### Target Environment
 
-Skills demonstrated included:
+**Target:** Mediroza General Hospital Web Application
 
-- Vulnerability classification
-- Impact assessment
-- Risk prioritization
-- Confidentiality analysis
-- Attack-chain analysis
-- Remediation planning
+**Application type:** Web-based hospital application
 
----
+**Key application component tested:**
 
-## 10. Professional Security Reporting
+- Patient authentication portal
+- Patient laboratory report section
 
-The final milestone required converting technical findings into a professional penetration testing report.
+### Testing Model
 
-Skills included:
+The project followed a practical black-box web application testing approach, where the tester progressively identified application functionality and security weaknesses through observation and controlled testing.
 
-- Executive-level reporting
-- Technical documentation
-- Evidence organization
-- Screenshot documentation
-- Risk rating
-- Remediation writing
-- Security recommendations
+OWASP describes black-box web application testing as an approach in which the tester has little or no prior knowledge of the application's internal implementation and progressively identifies access points and security controls. 
+
+### Authorization
+
+> **Important:** This assessment was performed under written authorization within the Networkwalks educational environment. The techniques documented in this repository must not be applied to systems without explicit permission from the system owner.
 
 ---
 
-# Methodology
+## Key Learning Outcomes
 
-The assessment followed a structured penetration testing methodology inspired by established web application security testing practices.
+This project provided several important practical cybersecurity lessons.
 
-The OWASP Web Security Testing Guide organizes web application testing into areas including information gathering, configuration and deployment management, identity management, authentication, authorization, session management, input validation, error handling and cryptography. :chatgpt-content-reference{index="0"}
+### 1. Authentication Errors Can Reveal Information
 
-The project applied these principles through the following phases.
+Different error messages for invalid usernames and incorrect passwords can unintentionally disclose information about valid accounts.
 
----
+This demonstrated the importance of designing authentication responses carefully.
 
-## Phase 1: Reconnaissance
+### 2. Input Validation Is Critical
 
-The first phase focused on understanding the target application.
+The login form demonstrated how improperly handled user input can result in database errors.
 
-Activities included:
+The exercise reinforced the importance of:
 
-- Identifying the login page.
-- Inspecting the application's functionality.
-- Identifying HTTP endpoints.
-- Examining request parameters.
-- Observing server responses.
-- Identifying potential authentication entry points.
+- Parameterized queries
+- Prepared statements
+- Input validation
+- Proper error handling
+- Least-privilege database accounts
 
-The goal was to understand the application before performing active testing.
+### 3. Vulnerabilities Can Be Chained
 
----
+One of the most important lessons from the project was that a penetration test should not treat vulnerabilities as isolated issues.
 
-## Phase 2: Authentication Testing
+The assessment demonstrated an attack path involving:
 
-The authentication mechanism was tested using controlled requests.
+**Authentication Testing → Application Access → PDF Retrieval → Metadata Analysis → Exposed Directory → Database Backup → Sensitive Data Exposure**
 
-The application returned different responses depending on the authentication failure condition.
+A relatively small information disclosure can therefore become much more serious when combined with another weakness.
 
-For example, different responses were observed for:
+### 4. Metadata Can Contain Security-Relevant Information
 
-- A username that did not exist.
-- A valid username with an incorrect password.
+File metadata is often overlooked during security assessments.
 
-This behavior demonstrated username enumeration.
+The investigation demonstrated that metadata can contain information about:
 
-Account enumeration is a recognized area of web application security testing under the OWASP methodology. :chatgpt-content-reference{index="1"}
+- Software
+- File generation systems
+- Internal paths
+- Operational notes
+- Application infrastructure
 
----
+### 5. Backup Files Must Be Protected
 
-## Phase 3: Input Validation Testing
+The exposed database backup represented a major security issue.
 
-The login parameters were tested for unsafe input handling.
+Backups should never be placed in publicly accessible web directories unless there is a strong, deliberate security control protecting them.
 
-Burp Repeater was used to modify the HTTP request and introduce controlled test input.
+### 6. Evidence Is Essential
 
-The server returned a MySQL syntax error after the crafted input was submitted.
+Screenshots, command output and captured responses were essential for proving each finding.
 
-This indicated that application input was reaching database processing in an unsafe manner.
+A penetration test is not only about discovering vulnerabilities. The tester must also be able to clearly demonstrate and document what was discovered.
 
-The result was treated as evidence consistent with SQL injection rather than assuming exploitation beyond what the evidence demonstrated.
+### 7. Professional Reporting Matters
 
-SQL injection testing specifically examines whether user-controlled input can influence database queries without appropriate validation or parameterization. :chatgpt-content-reference{index="2"}
+The final M4 report showed how technical findings can be translated into:
 
----
-
-## Phase 4: Authorized Credential Testing
-
-Authorized password testing was performed against the identified authentication mechanism.
-
-The purpose was to determine whether weak or guessable credentials could provide access to the restricted application area.
-
-The testing successfully identified valid credentials in the controlled lab environment.
-
-This allowed the next stage of the exercise to proceed.
+- Risk ratings
+- Business impact
+- Remediation recommendations
+- Evidence
+- Executive-level conclusions
 
 ---
 
-## Phase 5: Patient Portal Access
+## Challenges Faced and How They Were Overcome
 
-The identified credentials were used to access the authorized patient portal.
+### Challenge 1: Understanding the Authentication Mechanism
 
-The portal contained a laboratory report section.
+Initially, the application did not provide direct information about how authentication was implemented.
 
-Three PDF laboratory reports were retrieved as required by the M1 milestone.
+**How it was overcome:**
 
-The successful access demonstrated the potential impact of weaknesses in authentication controls.
-
----
-
-## Phase 6: PDF Encryption Analysis
-
-The three retrieved reports were analyzed using `qpdf`.
-
-The objective was to determine:
-
-- Whether encryption was enabled.
-- What encryption revision was used.
-- What permissions were configured.
-- Whether password protection was present.
-
-The files were subsequently processed using authorized password recovery techniques.
+Burp Suite was used to intercept the login request and inspect the request structure, parameters and server responses. This allowed the authentication workflow to be understood and tested systematically.
 
 ---
 
-## Phase 7: PDF Metadata Investigation
+### Challenge 2: Distinguishing Authentication Responses
 
-After access to the PDF documents was recovered, their metadata was examined using ExifTool.
+The application returned different messages depending on whether a username existed.
 
-The analysis identified:
+**How it was overcome:**
 
-- Document properties.
-- Software information.
-- Report details.
-- Keywords.
-- Internal comments.
+Multiple controlled authentication requests were compared. The difference between:
 
-One document contained an internal comment referring to an old database backup.
+- `Username not found`
+- `Incorrect password`
 
-This became an important investigative lead.
+provided useful evidence of username enumeration.
 
 ---
 
-## Phase 8: Server Resource Investigation
+### Challenge 3: Identifying the Input Validation Weakness
 
-The referenced `/old/` directory was investigated using cURL.
+The first indication of the injection issue came from an unexpected database error.
 
-The server response demonstrated that the directory was publicly accessible and exposed a database backup file.
+**How it was overcome:**
 
-This represented a significant configuration and information disclosure weakness.
+Burp Repeater was used to carefully modify the request parameters and observe how the server responded to crafted input.
 
-OWASP specifically recommends testing for old, backup and unreferenced files because such files can expose sensitive information, credentials, source code and internal infrastructure details. :chatgpt-content-reference{index="3"}
+The resulting SQL syntax error confirmed that user input was reaching database query processing in an unsafe manner.
 
 ---
 
-## Phase 9: Database Recovery and Analysis
+### Challenge 4: Recovering Protected PDF Contents
 
-The exposed SQL database backup was analyzed within a controlled local environment.
+The retrieved laboratory reports were protected with PDF encryption.
 
-A local MariaDB database was created.
+**How it was overcome:**
 
-The recovered SQL data was imported into the database.
+`qpdf` was used to inspect the encryption properties of the documents. Authorized password recovery techniques were then used to recover access to the files, after which the PDF contents could be analyzed.
 
-The database structure was then examined using SQL queries.
+---
 
-Two important tables were identified:
+### Challenge 5: Handling Special Characters in a Recovered Password
 
-```text
-staff
-shareholders
+One recovered password contained shell-special characters, which caused command-line interpretation problems.
+
+**How it was overcome:**
+
+Instead of placing the password directly into the shell command, a shell variable was used to safely store and pass the password to `qpdf`.
+
+This provided an additional practical lesson in secure command-line handling.
+
+---
+
+### Challenge 6: Discovering the Significance of PDF Metadata
+
+Initially, the PDF metadata appeared to contain mostly normal document information.
+
+However, one metadata field contained an internal operational comment.
+
+**How it was overcome:**
+
+ExifTool was used to systematically inspect all available metadata fields rather than focusing only on the visible PDF content.
+
+This led to the discovery of the `/old` directory and the exposed database backup.
+
+---
+
+### Challenge 7: Analyzing the Recovered Database
+
+The recovered SQL backup could not simply be treated as a normal text document because it contained database structures and records.
+
+**How it was overcome:**
+
+The backup was imported into a local MariaDB database in the controlled testing environment.
+
+SQL queries were then used to identify the tables and extract the required staff and shareholder information.
+
+---
+
+### Challenge 8: Documenting a Large Amount of Evidence
+
+The project generated a significant amount of evidence across multiple milestones.
+
+**How it was overcome:**
+
+Evidence was organized by milestone and finding, with screenshots and command outputs associated with the relevant stage of the penetration test.
+
+This made it possible to produce a structured M4 penetration testing report rather than presenting isolated screenshots without context.
+
+---
+
+## Conclusion
+
+The Mediroza General Hospital penetration testing project provided practical experience in identifying, validating and documenting web application security vulnerabilities.
+
+The assessment demonstrated that security weaknesses can interact and create a much greater overall risk than any single vulnerability considered independently.
+
+The project also reinforced the importance of secure authentication, proper input validation, protected backups, controlled information disclosure, secure document handling and comprehensive security testing.
+
+Most importantly, the project provided hands-on experience moving from **initial reconnaissance and vulnerability discovery through exploitation, evidence collection, impact analysis and professional reporting**.
+
+> **All testing documented in this repository was performed in an authorized educational environment. Do not reproduce these techniques against systems without explicit permission.**
+
+
